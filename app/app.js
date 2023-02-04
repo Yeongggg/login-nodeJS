@@ -29,7 +29,7 @@ const home = require("./src/routes/home"); //src폴더에 있는 routes에 home 
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs"); //ejs 는 html 이랑 비슷하다., ejs 를 사용하기 위해 npm에서 모듈을 다운로드 해줘야 한다.
-
+app.use(express.static(`${__dirname}/src/public`)); //__dirname -> 현재 app.js 위치를 기준으로 src폴더 에 있는 것을 public 으로 정적 경로로 사용하겠다.
 
 
 app.use("/", home); //미들웨어를 등록하는 메서드
