@@ -1,4 +1,5 @@
 "use strict"
+// 메인 JS 
 
 //express 모듈사용 방식이 http 방식 보다 코드가 훨씬 더 간결하다는 것을 알 수 있다.
 /*
@@ -21,6 +22,7 @@ app.listen(3001, ()=>{
 //모듈
 const express = require("express"); // 익스 프레스 모듈을 받는다.
 const app = express();
+const bodyParser = require("body-parser");
 
 //라우팅 
 const home = require("./src/routes/home"); //src폴더에 있는 routes에 home 에서 자바 스크립트를 읽어와 줘
@@ -31,7 +33,8 @@ app.set("views", "./src/views");
 app.set("view engine", "ejs"); //ejs 는 html 이랑 비슷하다., ejs 를 사용하기 위해 npm에서 모듈을 다운로드 해줘야 한다.
 app.use(express.static(`${__dirname}/src/public`)); //__dirname -> 현재 app.js 위치를 기준으로 src폴더 에 있는 것을 public 으로 정적 경로로 사용하겠다.
 
-
+app.use(bodyParser.json()); //json 을 파싱 할 수 있도록 함.
+app.use(bodyParser.urlencoded({extended:true})); // 한글, 공백 같은 것을 잘 읽어올 수 있게 한다.
 app.use("/", home); //미들웨어를 등록하는 메서드
 
 module.exports = app; //www.js 에서 받을 수 있게 모듈을 던짐.

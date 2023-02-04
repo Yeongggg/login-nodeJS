@@ -1,5 +1,7 @@
 "use strict"
 
+
+
 const UserId = document.querySelector("#id");
 const UserPassword = document.querySelector("#password");
 const loginBtn = document.querySelector("button");
@@ -12,6 +14,20 @@ loginBtn.addEventListener("click",()=>{
         id : UserId.value,
         password : UserPassword.value
     };
-   console.log(req);
-});
+   
+    fetch("/login",{
+        method: "POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(req) // JSON 형태의 req를 /login 경로로 보냄.
+        
+    }).then((res)=>res.json())
+      .then((res)=>{
+        
+      }); 
+
+
+    });
+
 
