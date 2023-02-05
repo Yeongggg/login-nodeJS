@@ -10,8 +10,10 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
         name :["연규", "철수", "영희"],
     };
 
-   static getUsers(...fields){
+   static getUsers(...fields) //...변수명 
+   {
     const users = this.#users;
+    //Array.reduce() -> 베열의 각 요소를 순환 하며 callback 함수의 실행값을 누적하여 하나의 결과값을 리턴한다.
     const newUsers = fields.reduce((newUsers,field) =>{
         if(users.hasOwnProperty(field)){
             //users에 해당 하는 키값이 존재 한다면,

@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title> 로그인 화면</title>
 <link rel ="stylesheet" href="/css/home/login.css">
-<script src = "/js/home/login.js" defer></script>
+<script src = "/js/home/register.js" defer></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
             <input id = "name" type="text" placeholder="이름"/>
             <input id = "password" type="password" placeholder="비밀번호"/>
             <input id = "confirm-password" type="password" placeholder="비밀번호 확인"/>
-            <button id ="registerBtn">register</button>
+            <p id ="button">register</p> <!--form 태그 안에 button은 submit 이 되어 누를 때 마다 화면이 로드된다.-->
             <p class="message">Already registered? <a href="/login">login</a></p>
           </form>
 
