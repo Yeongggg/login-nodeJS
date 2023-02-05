@@ -22,7 +22,17 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
 
         return newUsers;
     }
-    
+    static getUserInfo(id){
+        const users = this.#users;
+        const idx = users.id.indexOf(id); //들어온 id 에 해당하는 인덱스를 구함
+        const usersKeys = Object.keys(users); // users에 대한 리스트를 만듦
+        const userInfo = usersKeys.reduce((newUser,info) =>{
+            newUser[info] = users[info][idx];
+            return newUser;
+        },{});
+        return userInfo;
+       
+    }
 }
 
 //위처럼 데이터를 은닉 시킨후 ('#') 그 은닉된 데이터를 가져 올 수 있는  퍼블릭한 메서드를 만들어야 한다.
