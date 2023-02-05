@@ -1,10 +1,8 @@
 "use strict"
 
-
-
 const UserId = document.querySelector("#id");
 const UserPassword = document.querySelector("#password");
-const loginBtn = document.querySelector("button");
+const loginBtn = document.querySelector("#loginBtn");
 
 
 loginBtn.addEventListener("click",()=>{

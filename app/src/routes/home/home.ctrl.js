@@ -20,7 +20,7 @@ const process ={
 
         const user = new User(req.body);
         const response = user.login();
-        return res.json(response);
+        return res.json(response); //클라이언트에게 던져 주는 것
 
 
     }
@@ -31,5 +31,5 @@ const process ={
 //모듈을 외부로 사용 할 수 있게끔 한다.
 module.exports={
 output,
-process
+process,
 };
