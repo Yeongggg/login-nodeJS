@@ -1,9 +1,6 @@
 "use strict"
 
-const users ={
-    id : ["aa","ac", "bd"],
-    password:["11","12","1234"],
-};
+const  Userstorage = require("../../models/UserStorage"); 
 
 //컨트롤러 분리
 const output ={
@@ -22,20 +19,27 @@ const process ={
     login : (req,res)=>{
        const id = req.body.id;
        const password = req.body.password;
-        
-       if(users.id.includes(id)){
-        const idx = users.id.indexOf(id);
-        if(users.password[idx] == password){
-            return res.json({
-                sucess:true ,
-            });
+
+
+     const users = Userstorage.getUsers("id", "password");
+       
+       const response = {}; //오브젝트를 하나 만듦 
+
+        if(users.id.includes(id)){   
+         const idx = users.id.indexOf(id);
+         if(users.password[idx] == password){
+             response.sucess = true;
+             return res.json(response);
+         }
         }
-       }
-       return res.json({
-        sucess:false,
-        msg : "로그인에 실패 했어요.",
-       });
-    },
+        response.sucess =false;
+
+        response.sucess =false;
+        response.msg ="로그인에 실패 했습니다.";
+        return res.json(response);
+       
+ 
+    }
 }
 
 
