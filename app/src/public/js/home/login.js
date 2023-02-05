@@ -22,12 +22,24 @@ loginBtn.addEventListener("click",()=>{
         },
         body : JSON.stringify(req) // JSON 형태의 req를 /login 경로로 보냄.
         
-    }).then((res)=>res.json())
+    })
+    .then((res)=>res.json())
       .then((res)=>{
-        
-      }); 
+            if(res.sucess){
+                location.href ="/"; //로그인에 성공 했을 시 
+            }else{
+                alert(res.msg);
+            }
+      })
+      .catch((err) => {
+        console.error(("로그인 중 에러 발생"));
+      });
+    }
+)
 
 
-    });
+
+    
+
 
 
