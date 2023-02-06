@@ -11,9 +11,9 @@ class User{
         this.body = body;
 
     }
-    login(){
+     async login(){
         const client = this.body;
-        const {id,password} = UserStorage.getUserInfo(client.id); //userstorage 에 접근해 id 와 password 를 가져옴
+        const {id,password} =  await UserStorage.getUserInfo(client.id); //userstorage 에 접근해 id 와 password 를 가져옴
 
         if(id){
             if(id == client.id&& password == client.password){
