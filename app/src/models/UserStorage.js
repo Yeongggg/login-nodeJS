@@ -24,6 +24,7 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
 
         return newUsers;
     }
+
     static getUserInfo(id){
         const users = this.#users;
         const idx = users.id.indexOf(id); //들어온 id 에 해당하는 인덱스를 구함
@@ -34,6 +35,14 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
         },{});
         return userInfo;
        
+    }
+
+    static save(userInfo){
+        const users = this.#users;
+        users.id.push(userInfo.id);
+        users.name.push(userInfo.name);
+        users.password.push(userInfo.password); //이런 방식으로 하면 서버를 껐다가 키면 저장한 정보가 지워짐
+       return {sucess : true}; 
     }
 }
 

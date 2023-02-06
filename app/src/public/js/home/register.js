@@ -8,14 +8,16 @@ const registerBtn = document.querySelector("#button");
 
 
 registerBtn.addEventListener("click",()=>{
-
+    if(!UserId.value) return alert("아이디를 입력하세요.");
+    if(password !== UserConfirmPassword){
+        return alert("비밀번호가 일치 하지 않습니다.");
+    }
     //req 오브젝트 만들기 
     const req ={
         id : UserId.value,
         name : UserName.value,
         password : UserPassword.value,
-        confirmPassword: UserConfirmPassword.value,
-    };
+    }
    
     fetch("/register",{
         method: "POST",
@@ -37,7 +39,7 @@ registerBtn.addEventListener("click",()=>{
         console.error(("회원가입 중 에러 발생"));
       });
     }
-)
+);
 
 
 
