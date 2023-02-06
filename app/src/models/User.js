@@ -1,6 +1,6 @@
 "use strict"
 
-const { response } = require("../../app");
+const  response  = require("../../app");
 const UserStorage = require("./UserStorage"); //require() 과 module.exports
 //nodeJs 에서는 require을 통해 외부 모듈을 가져올 수 있다. 
 
@@ -13,7 +13,7 @@ class User{
     }
      async login(){
         const client = this.body;
-        const {id,password} =  await UserStorage.getUserInfo(client.id); //userstorage 에 접근해 id 와 password 를 가져옴
+        const {id,password} =  await UserStorage.getUserInfo(client.id); //userstorage 에 접근해 id 와 password 를 가져옴 , 비동기적으로 실행 , 테이블을 읽어 온 후 실행 되어야하기 때문에 
 
         if(id){
             if(id == client.id&& password == client.password){
@@ -25,10 +25,15 @@ class User{
        
     }
 
-    register(){
+    async register(){
         const client = this.body;
-        const response = UserStorage.save(client);
+        try{
+        const response = await UserStorage.save(client);
         return response;
+    }
+        catch(err){
+            return {sucess : false, msg : err};
+        }
     }
 }
 

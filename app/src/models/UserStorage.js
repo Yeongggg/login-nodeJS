@@ -1,5 +1,5 @@
 "use strict "
-const fs = require("fs").promises //테이블을 읽어오기 위해  
+const fs = require("fs").promises; //테이블을 읽어오기 위해  
 
 //데이터만 가진 모듈 만들기
 
@@ -14,12 +14,12 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
                 return newUser;
             },{});
             return userInfo;
-    }
-    
-   static getUsers(...fields) //...변수명 
-   {
-    // const users = this.#users;
-    //Array.reduce() -> 베열의 각 요소를 순환 하며 callback 함수의 실행값을 누적하여 하나의 결과값을 리턴한다.
+    } //은닉 함수를 최 상단에 표기
+
+    static #getUsers(data,isAll, fields){
+        const users = JSON.parse(data);
+        if(isAll) return users;
+        //Array.reduce() -> 베열의 각 요소를 순환 하며 callback 함수의 실행값을 누적하여 하나의 결과값을 리턴한다.
     const newUsers = fields.reduce((newUsers,field) =>{
         if(users.hasOwnProperty(field)){
             //users에 해당 하는 키값이 존재 한다면,
@@ -31,24 +31,45 @@ class Userstorage{ //static =>  클래스 자체에서 접근 가능함. , 하�
         return newUsers;
     }
 
+   static getUsers(isAll,...fields) //...변수명 
+   {
+
+    return fs
+    .readFile("./src/databases/users.json")
+    .then((data) =>{
+        return this.#getUsers(data, isAll, fields); //가독성을 위해 안의 함수 내용을 따로 빼서 표기
+    })
+    .catch(err => console.error); 
+
+   
+    
+    }
+
+
     static getUserInfo(id){
        
         return fs
         .readFile("./src/databases/users.json")
         .then((data) =>{
-            return this.#getUserInfo(data,id);
+            return this.#getUserInfo(data,id); //가독성을 위해 안의 함수 내용을 따로 빼서 표기
         })
         .catch(err => console.error); 
 
     }
     
 
-    static save(userInfo){
-        // const users = this.#users;
-        users.id.push(userInfo.id);
-        users.name.push(userInfo.name);
-        users.password.push(userInfo.password); //이런 방식으로 하면 서버를 껐다가 키면 저장한 정보가 지워짐
-       return {sucess : true}; 
+    static async  save(userInfo){
+        const users =  await this.getUsers(true); //모든 데이터를 가져온다.
+        if(users.id.includes(userInfo.id)){   
+            throw "이미 존재하는 정보입니다.";
+        }
+        users.id.push(userInfo.id); 
+            users.name.push(userInfo.name); 
+            users.password.push(userInfo.password); 
+            
+            fs.writeFile("./src/databases/users.json", JSON.stringify(users)); //데이터를 json 형태로
+            return {sucess:true};
+
     }
 }
 
