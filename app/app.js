@@ -23,6 +23,8 @@ app.listen(3001, ()=>{
 const express = require("express"); // 익스 프레스 모듈을 받는다.
 const app = express();
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv"); //어떤 os에서 실행 하더라도 같은 것을 사용할 수 있다.
+dotenv.config();
 
 //라우팅 
 const home = require("./src/routes/home"); //src폴더에 있는 routes에 home 에서 자바 스크립트를 읽어와 줘
